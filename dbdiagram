@@ -1,0 +1,69 @@
+Table categories as ca{
+  id string pk
+  name string
+  description string
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table specifications as s{
+  id string pk
+  name string
+  description string
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table cars as c{
+  id string pk
+  name string
+  description string
+  daily_rate integer
+  available boolean [default: true]
+  license_plate string
+  fine_amount string
+  brand string
+  category_id string
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table specifications_cars as sc{
+  id string pk
+  car_id string
+  specification_id string
+  created_at timestamp
+  updated_at timestamp
+}
+
+Ref: sc.car_id > c.id  
+Ref: sc.specification_id > s.id 
+Ref: c.category_id > ca.id  
+
+Table rentals as r{
+  id string pk
+  car_id string
+  user_id string
+  start_date date
+  end_date date
+  expected_return_date date
+  total integer
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table users as u {
+  id string pk
+  first_name string
+  last_name string
+  password string
+  email string [not null, unique]
+  driver_licence string
+  admin boolean [default: false]
+  created_at timestamp
+  updated_at timestamp
+  
+}
+Ref: r.car_id > c.id  
+Ref: r.user_id > u.id  
+
